@@ -18,7 +18,3 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 
 ## Potential Improvements
-
-
-
-*If the URL matches that of a Route, it will be rendered by React-Router. Otherwise, the Route will render null. 
