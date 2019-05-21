@@ -90,7 +90,6 @@ export const getUserInfo = (state=initStateUser, action={}) => {
         case GET_USER_INFO_PENDING:
             return { ...state, loading: true };
         case GET_USER_INFO_SUCCESS:
-            console.log(action.payload)
             const {videos, comments} = action.payload;
             return { ...state, loading: false, videos, comments }
         case GET_USER_INFO_FAILED:
