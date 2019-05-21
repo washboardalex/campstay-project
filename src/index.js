@@ -4,11 +4,11 @@ import './index.css';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
-import { getVideos, getVideoAndComment } from './_redux/reducers'
+import { getVideos, getVideoAndComment, getUserInfo } from './_redux/reducers'
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
 
-const rootReducer = combineReducers({getVideos, getVideoAndComment});
+const rootReducer = combineReducers({getVideos, getVideoAndComment, getUserInfo});
 //Allows use of redux devtools in Chrome
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

@@ -7,6 +7,9 @@ import {
     GET_VIDEO_SUCCESS,
     NEW_COMMENT_CHANGE,
     PUBLISH_NEW_COMMENT,
+    GET_USER_INFO_PENDING,
+    GET_USER_INFO_SUCCESS,
+    GET_USER_INFO_FAILED,
     LIKE_VIDEO,
 } from './constants';
 
@@ -74,3 +77,25 @@ export const getVideoAndComment = (state=initStateVideo, action={}) => {
           return state;
     }
 }
+
+const initStateUser = {
+    id: null,
+    videos: [],
+    comments: [],
+    loading: true
+}
+
+export const getUserInfo = (state=initStateUser, action={}) => {
+    switch(action.type) {
+        case GET_USER_INFO_PENDING:
+            return { ...state, loading: true };
+        case GET_USER_INFO_SUCCESS:
+            console.log(action.payload)
+            const {videos, comments} = action.payload;
+            return { ...state, loading: false, videos, comments }
+        case GET_USER_INFO_FAILED:
+            return { ...state, loading: false, error: action.payload };
+        default:
+          return state;
+    }
+} 

@@ -7,6 +7,7 @@ import CommentsList from './CommentsList';
 import Loading from './Loading';
 import VideoPlayer from './VideoPlayer';
 
+
 const mapStateToProps = (state) => {
     const { video, comments, likes, loading, hasLiked } = state.getVideoAndComment
     return {
