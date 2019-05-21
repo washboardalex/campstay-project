@@ -1,68 +1,48 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Introduction
 
-## Available Scripts
+This is a [Create React App](https://github.com/facebook/create-react-app) + Redux implementation of the specified technical challenge.
 
-In the project directory, you can run:
+To run the project, cd to package.json location and run 
 
 ### `npm start`
 
-Runs the app in the development mode.<br>
+This will run the app in development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Design Considerations
 
-### `npm test`
+The design is quite minimalist. I treated this project as a blog template, and for sites in which users primarily read text I find that flourishes can be distracting more than delightful for the user. For an example of this, please see my own [portfolio sight](http://www.alexgujas.com/), where the visually pleasant animated grains can be disorienting when reading on certain screens.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To keep some measure of visual interest I included an image of our "author", and replaced buttons with elegant .svgs. The one piece of animation is an animated Loading component. All visual flourishes were purposefully understated. 
 
-### `npm run build`
+A final note: the reason for the simple colour palette was that I wanted to implement a dark mode, something I had never done before in a website and was curious to work through. Ultimately I was successful, but the path taken was rather hacky so I have elected to place it in a separate [github repo](https://github.com/washboardalex/locify-tech-exercise-dark-mode). 
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+I am happy to discuss details of this implementation during the technical interview.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+## Broad Logic 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+In /src/components/* the most important components for easily digesting my implementation are Home.js and Post.js - they are the components rendered by React-Router, a dynamic routing package which renders routes as components*. The routing occurs in /src/containers/App.js - App.js - there is no state or markup in App.js, it is used entirely for routing.
 
-### `npm run eject`
+The Home.js component renders post previews twenty at a time - a button in the form of a .svg (stack of books) calls the fetch method from onClick. The fetch api call indexes at the last unloaded postId to prevent fetching redundant data. Javascript's concat method then joins old and new state to form a new post preview list.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Clicking on a post will load the dynamic ':/postId' url, rendering the Post.js component. no props are passed from Home.js to Post.js because navigating directly to '/23', for example will result in an error if the props object doesn't contain expected values. Using match.url (in this case the path of '/:postId' will produce a match.url === '/23') will result in no errors as all components rendered by React Router receive this prop. A fetch api call dynamically generates data based on the match.url prop.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+All other components are elements of these two "pages". 
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+A Note on Redux: This project might not have necessarily needed redux, which is typically used to scale applications. However, I decided to use it for three reasons:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. Rob informed me during our chat that Redux state closely mirrors that used by Vue.js - as such I wanted to demonstrate familiarity
+2. The apps we will be working on will be intended to scale
+3. Ordinary React Classes reset state objects on page load - this creates redundant calls to apis. Because redux state hangs "above" the application, state is more persistent. If this was an actual blog I was maintaining, for example, I would probably still use redux state.
 
-## Learn More
+## Potential Improvements
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Blogs are more or less a solved problem, so really adding improvements would be a matter of adding the usual UI elements - profiles of writers and commenters, liking comments, notifications, etc.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Other than this, I have noted that my NewComments component does not have any form validation styling - this was not added due to time constraints. Please see koalatransfers.com.au for an example of me implementing form validation. 
 
-### Code Splitting
+Dark Mode: I used a library utilising react hooks to generate a dark mode. Hooks doesn't play well with React Classes and I had utilised the componentDidMount class method in this build. I used the library to build fast, however the same functionality could be achieved with some pre-thought and care using base CSS-in-JS (or maybe something like emotion) coupled with redux. Redux would house the 'isDarkMode' piece of state for the app, and the CSS-in-JS would be used to dynamically generate styles. 
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+As I say, there was no time to implement this fully so I went for the rough build.
 
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+*If the URL matches that of a Route, it will be rendered by React-Router. Otherwise, the Route will render null. 

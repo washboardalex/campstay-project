@@ -1,0 +1,10 @@
+export const API_URL = 'https://my-json-server.typicode.com/Campstay/youtube-test';
+export const GET_VIDEOS_PENDING = 'GET_VIDEOS_PENDING';
+export const GET_VIDEOS_SUCCESS = 'GET_VIDEOS_SUCCESS';
+export const GET_VIDEOS_FAILED = 'GET_VIDEOS_FAILED';
+export const GET_VIDEO_PENDING = 'GET_VIDEO_PENDING';
+export const GET_VIDEO_SUCCESS = 'GET_VIDEO_SUCCESS';
+export const GET_VIDEO_FAILED = 'GET_VIDEO_FAILED';
+export const NEW_COMMENT_CHANGE = 'NEW_COMMENT_CHANGE';
+export const PUBLISH_NEW_COMMENT = 'PUBLISH_NEW_COMMENT';
+export const LIKE_VIDEO = 'LIKE_VIDEO';
