@@ -43,7 +43,7 @@ class Home extends Component {
         <div className='center row'>
           <div style={{ width:'70%'}} >
             <div style={{marginTop:'50px', marginBottom:'10px'}} className='center col-12'><h1>Videos Ya Mug! I changed this file! And it's changed again in New Zealand!</h1></div>
-            <VideoList videos={videos} />          
+            <VideoList videos={videos} />
           </div>
           { loading === true && <div className='stdrd-margin center col-12'><Loading text={'Loading'} /></div> }
         </div>
